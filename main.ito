@@ -1,0 +1,54 @@
+{{export
+    card_files = ["cards.crd"];
+    card_width = 50;
+    card_height= 70;
+    padding = 1;
+    margin=4;
+    imports="util.ito"
+    front_path="out/front_"
+    back_path="out/back_"
+    img_path="../imgs"
+    check_img_path="imgs"
+}}
+
+{{@export extra -}}
+    {{# Anything to appear on every page once #}}
+{{- /export}}
+
+{{global front}}
+  		<rect {{xywh 0 0 50 70 }} fill="{{color .type}}" stroke="black" stroke-width="1"/>
+      <rect {{xywh 5 5 40 60}} fill="White" stroke="None" opacity="0.5"/>
+
+      {{if is_file (join $1.check_img_path (cat .Name ".png"))}}
+        {{debug "File Found"}}
+        {{#<rect {{xywh 17.5 20 15 15}} {{fl_stk "White" "None" 0}} />#}}
+        <image {{xywh 17.5 20 15 15 }} xlink:href="{{join $1.img_path (cat .Name ".png")}}"/>
+      {{/if}}
+
+      <text {{xy 20 10 }} {{fl_stk "black" "yellow" 0.5}} style="paint-order:stroke" text-anchor="middle" {{font 6 "Rockwell"}}>{{.Name}}</text>
+      {{#COSTS#}} 
+      {{for k c in .cost}} {{resource $c 45 (add 8 (mul $k 10))}} {{/for}}
+
+      {{if .jobs}}{{for jk jb in .jobs}}
+            {{let y = sub 60 (mul 10 $jk)}}
+            {{export arrowx = 0}}
+            {{for k p in $jb.req}}
+                {{resource $p (add 10 (mul $k 11)) $y }}
+                {{export arrowx = $k}}
+            {{/for}}
+            <text {{xy (add 16 (mul $arrowx 10)) (add 1 $y) }} {{fl_stk "black" "white" 0.4}} style="paint-order:stroke" text-anchor="middle" {{font 4 "Rockwell"}}>=&gt;</text>
+
+
+            {{for k p in $jb.for}}
+                {{resource $p (sub 45 (mul $k 11)) $y }}
+            {{/for}}
+      {{/for}}{{/if}}
+
+
+
+
+{{/global}}
+
+{{global back}}
+    <rect {{xywh 0 0 50 70}} {{fl_stk "cyan" "black" 2}} opacity="0.6"/>
+{{/global}}
