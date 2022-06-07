@@ -18,7 +18,7 @@
 {{global front}}
   		<rect {{xywh 0 0 56 71 }} fill="{{color .type}}" stroke="black" stroke-width="1"/>
       <rect {{xywh 5 5 46 61}} fill="White" stroke="None" opacity="0.5"/>
-
+      {{if lt $2.type_nth (first .start 0)}}<rect {{xywh 4 4 8 8}} {{fl_stk "white" "black" 2}} />{{/if}}
       {{if is_file (join $1.check_img_path (cat .Name ".png"))}}
         {{debug "File Found"}}
         {{#<rect {{xywh 17.5 20 15 15}} {{fl_stk "White" "None" 0}} />#}}
