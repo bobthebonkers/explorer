@@ -7,6 +7,8 @@ Setup:
 Place Start (Big S) tile in middle of play area
 Select 10 Start cards : , shuffle and draw 5
 shuffle Hunger and Thirst Cards together
+shuffle & place down rest of cards, put 5 in trade row
+take 1 of each resource
 
 
 Basic outline:
